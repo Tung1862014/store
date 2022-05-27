@@ -1,5 +1,8 @@
 const Staff = require('../models/Staff');
-const { multipleMongooseToObject,  mongooseToObject } = require('../../util/mongoose');
+const {
+    multipleMongooseToObject,
+    mongooseToObject,
+} = require('../../util/mongoose');
 
 class StaffController {
     //[GET]  /staff
@@ -14,29 +17,26 @@ class StaffController {
             .catch(next);
     }
 
-    //[POST] /Insert
-    update(req, res,next) {
-        Staff.find({})
-            .then((users) => {
+    //[Get] /update
+    edit(req, res, next) {
+        // res.send(req.params.slug);
+        Staff.findById(req.params.id)
+            .then((user) => {
                 res.render('staffs/update', {
-                    users: multipleMongooseToObject(users),
+                    user: mongooseToObject(user),
                 });
             })
             .catch(next);
+        
+    }
+    //[PUT] /update/save
+    update(req, res, next) {
+        // res.json(req.body)
 
-        // res.send(req.params.slug);
-        // Staff.findOne({slug: req.params.slug})
-        //     .then(user => {
-        //         res.render('staffs/update',{
-        //             user:  mongooseToObject(user)
-        //         })
-        //     })
-        //     .catch(next);
-            // .finally((users) => {
-            //     res.render('staffs/update', {
-            //         users: multipleMongooseToObject(users),
-            //     });
-            // });
+        Staff.updateOne({_id: req.params.id}, req.body)
+            .then(() => res.redirect('/staff'))
+            .catch(next);
+        
     }
 
     //[POST]  /staffs/insert
@@ -44,13 +44,17 @@ class StaffController {
         //
 
         const formData = req.body;
-       const user = new Staff(formData);
-       user.save()
-       .then(() => res.redirect('/staff'))
-       .catch(error =>{
-
-       })
-}
+        const user = new Staff(formData);
+        user.save()
+            .then(() => res.redirect('/staff'))
+            .catch((error) => {});
+    }
+     // [DELETE] /delete/save/:id
+     delete(req, res, next){
+        Staff.deleteOne({_id: req.params.id})
+            .then(() => res.redirect('back'))
+            .catch(next);
+    }
 }
 
 module.exports = new StaffController();

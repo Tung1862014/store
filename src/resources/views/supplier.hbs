@@ -18,7 +18,7 @@
                         Trang chủ</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link active' href='/staff'><svg
+                    <a class='nav-link ' href='/staff'><svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='16'
                             height='16'
@@ -75,7 +75,7 @@
                         Đơn hàng</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='/product'><svg
+                    <a class='nav-link ' href='/product'><svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='16'
                             height='16'
@@ -90,7 +90,7 @@
                         Quản lý sản phẩm</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='/supplier'><svg
+                    <a class='nav-link active' href='/supplier'><svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='16'
                             height='16'
@@ -128,27 +128,29 @@
         </div>
 
         <div class='col-sm-7'>
+            <div>
+                <h3>Nhà cung cấp</h3>
+                <a href="supplier/trash">Thùng rác</a>
+            </div>
             <table class='table table-striped'>
                 <thead>
                     <tr>
-                        <th scope='col'>#</th>
-                        <th scope='col'>Tên nhân viên</th>
-                        <th scope='col'>Chức vụ</th>
-                        <th scope='col'>Số điện thoại</th>
+                        <th scope='col'>STT</th>
+                        <th scope='col'>Tên nhà cung cấp</th>
+                        <th scope='col'>Số lượng</th>
                         <th scope='col'>Sửa</th>
                         <th scope='col'>Xóa</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each users}}
+                    {{#each suppliers}}
                         <tr>
                             <th scope='row'>{{sum @index 1}}</th>
                             <td>{{this.name}}</td>
-                            <td>{{this.level}}</td>
-                            <td>{{this.phone}}</td>
+                            <td>{{this.number}}</td>
 
                             <td>
-                                <a href='staff/update/{{this._id}}'>
+                                <a href='supplier/update/{{this._id}}'>
                                     <svg
                                         xmlns='http://www.w3.org/2000/svg'
                                         width='16'
@@ -180,75 +182,68 @@
                                         ></path>
                                     </svg></a></td>
                         </tr>
+                        {{else}}
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                Bạn chưa thêm nhà cung cấp nào.
+                            </td>
+                        </tr>
                     {{/each}}
                 </tbody>
             </table>
         </div>
         <div class='col-2 form-staff'>
-            <form method='POST' action='/staff/insert'>
+            <form method='POST' action='/supplier/insert'>
                 <div class='form-group'>
-                    <label for='name'>Tên nhân viên</label>
+                    <label for='name'>Tên nhà cung cấp</label>
                     <input
                         type='text'
                         name='name'
                         class='form-control'
                         id='name'
                         aria-describedby='emailHelp'
-                        placeholder='ví dụ: Nguyễn Thanh Tùng'
+                        placeholder='ví dụ: Màn hình oleg sam sung'
+                    /> 
+                </div>
+                 {{!-- <div class='form-group'>
+                    <label for='image' class='image-product'>Chọn file ảnh</label>
+                    <input
+                        type='file'
+                        name='image'
+                        class='form-control'
+                        id='image'
+                        aria-describedby='emailHelp'
+                        style='display:none;'
                     />
-                </div>
-                {{! <div class="form-group">
-                    <label for="level">Chọn chức vụ</label>
-                    <input type="text" name="level" class="form-control" id="level" placeholder="ví dụ: 0918814058">
-                </div> }}
-                <div class='form-group'>
-                    <label for='level'>Chức vụ</label>
-                    <select id='level' class='form-control' name='level'>
-                        <option class='level-staff' value=''>Chọn chức vụ</option>
-                        <option class='level-staff' value='Kế toán'>Kế toán</option>
-                        <option class='level-staff' value='Kỹ sư'>Kỹ sư</option>
-                        <option
-                            class='level-staff'
-                            value='Nhân viên bán hàng'
-                        >Nhân viên bán hàng</option>
-                    </select>
-                </div>
-                {{! <div class="form-group">
-                    <label for="cm">Số CCCD/SCMND</label>
-                    <input type="text" class="form-control" id="cm" placeholder="ví dụ: 352637567">
-                </div> }}
-                <div class='form-group'>
-                    <label for='phone'>Số điện thoại</label>
+                </div> --}}
+                 <div class='form-group'>
+                    <label for='number'>Số lượng</label>
                     <input
                         type='text'
-                        name='phone'
+                        name='number'
                         class='form-control'
-                        id='phone'
-                        placeholder='ví dụ: 0918814058'
+                        id='number'
+                        aria-describedby='emailHelp'
+                        placeholder='ví dụ: 20'
                     />
                 </div>
-                {{! <div class="form-check">
-                     <label class="image" for="exampleCheck1">Chọn ảnh đại diện</label>
-                    <input type="file"  id="image">  
-                </div> }}
-                <button type='submit' class='btn btn-primary'>Thêm</button>
+                <button type='submit' class='btn btn-primary mt-4'>Thêm</button>
             </form>
         </div>
     </div>
 </div>
-
 {{!-- Comform delete  --}}
 <div class="modal" id="comfirmDelete" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Xóa nhân viên</h5>
+        <h5 class="modal-title">Xóa nhà cung cấp</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Bạn có muốn xóa nhân viên này?</p>
+        <p>Bạn có muốn xóa nhà cung cấp này?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Hủy</button>
@@ -263,17 +258,17 @@
 
 <script>
     document.addEventListener("DOMContentLoaded",function(){
-        var staffId;
+        var supplierId;
         var deleteForm = document.forms['delete-form'];
-         var btnDeleteStaff = document.getElementById('btn-delete-modal');
+         var btnDeleteSupplier = document.getElementById('btn-delete-modal');
 
         $('#comfirmDelete').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) ;
-        staffId = button.data('id') ;
+        supplierId = button.data('id') ;
         });
 
-        btnDeleteStaff.onclick = function(){
-            deleteForm.action = '/staff/delete/save/'+staffId+'?_method=DELETE';
+        btnDeleteSupplier.onclick = function(){
+            deleteForm.action = '/supplier/delete/save/'+supplierId+'?_method=DELETE';
             deleteForm.submit();
         }
    })

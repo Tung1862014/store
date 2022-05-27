@@ -1,7 +1,28 @@
+const Customer = require('../models/Customer');
+const {
+    multipleMongooseToObject,
+    mongooseToObject,
+} = require('../../util/mongoose');
 class CustomerController {
-    //[GET]  /staff
-    index(req, res) {
-        res.render('customer');
+    //[GET]  /customer
+    index(req, res, next) {
+        //
+        Customer.find({})
+            .then((customers) => {
+                res.render('customer', {
+                    customers: multipleMongooseToObject(customers),
+                });
+            })
+            .catch(next);
+    }
+    //[PUT] /update/save
+    update(req, res, next) {
+        // res.json(req.body)
+        // res.json(req.params.id);
+        Customer.updateOne({_id: req.params.id}, req.body)
+            .then(() => res.redirect('/customer'))
+            .catch(next);
+        
     }
 }
 

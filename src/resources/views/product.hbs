@@ -18,7 +18,7 @@
                         Trang chủ</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link active' href='/staff'><svg
+                    <a class='nav-link ' href='/staff'><svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='16'
                             height='16'
@@ -75,7 +75,7 @@
                         Đơn hàng</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='/product'><svg
+                    <a class='nav-link active' href='/product'><svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='16'
                             height='16'
@@ -131,24 +131,24 @@
             <table class='table table-striped'>
                 <thead>
                     <tr>
-                        <th scope='col'>#</th>
-                        <th scope='col'>Tên nhân viên</th>
-                        <th scope='col'>Chức vụ</th>
-                        <th scope='col'>Số điện thoại</th>
+                        <th scope='col'>STT</th>
+                        <th scope='col'>Tên sản phẩm</th>
+                        <th scope='col'>Số lượng</th>
+                        <th scope='col'>Giá</th>
                         <th scope='col'>Sửa</th>
                         <th scope='col'>Xóa</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each users}}
+                    {{#each products}}
                         <tr>
                             <th scope='row'>{{sum @index 1}}</th>
                             <td>{{this.name}}</td>
-                            <td>{{this.level}}</td>
-                            <td>{{this.phone}}</td>
+                            <td>{{this.number}}</td>
+                            <td>{{this.money}}</td>
 
                             <td>
-                                <a href='staff/update/{{this._id}}'>
+                                <a href='product/update/{{this._id}}'>
                                     <svg
                                         xmlns='http://www.w3.org/2000/svg'
                                         width='16'
@@ -185,53 +185,61 @@
             </table>
         </div>
         <div class='col-2 form-staff'>
-            <form method='POST' action='/staff/insert'>
+            <form method='POST' action='/product/insert'>
                 <div class='form-group'>
-                    <label for='name'>Tên nhân viên</label>
+                    <label for='name'>Tên sản phẩm</label>
                     <input
                         type='text'
                         name='name'
                         class='form-control'
                         id='name'
                         aria-describedby='emailHelp'
-                        placeholder='ví dụ: Nguyễn Thanh Tùng'
+                        placeholder='ví dụ: Màn hình oleg sam sung'
+                    /> 
+                </div>
+                 {{!-- <div class='form-group'>
+                    <label for='image' class='image-product'>Chọn file ảnh</label>
+                    <input
+                        type='file'
+                        name='image'
+                        class='form-control'
+                        id='image'
+                        aria-describedby='emailHelp'
+                        style='display:none;'
                     />
-                </div>
-                {{! <div class="form-group">
-                    <label for="level">Chọn chức vụ</label>
-                    <input type="text" name="level" class="form-control" id="level" placeholder="ví dụ: 0918814058">
-                </div> }}
-                <div class='form-group'>
-                    <label for='level'>Chức vụ</label>
-                    <select id='level' class='form-control' name='level'>
-                        <option class='level-staff' value=''>Chọn chức vụ</option>
-                        <option class='level-staff' value='Kế toán'>Kế toán</option>
-                        <option class='level-staff' value='Kỹ sư'>Kỹ sư</option>
-                        <option
-                            class='level-staff'
-                            value='Nhân viên bán hàng'
-                        >Nhân viên bán hàng</option>
-                    </select>
-                </div>
-                {{! <div class="form-group">
-                    <label for="cm">Số CCCD/SCMND</label>
-                    <input type="text" class="form-control" id="cm" placeholder="ví dụ: 352637567">
-                </div> }}
-                <div class='form-group'>
-                    <label for='phone'>Số điện thoại</label>
+                </div> --}}
+                 <div class='form-group'>
+                    <label for='number'>Số lượng</label>
                     <input
                         type='text'
-                        name='phone'
+                        name='number'
                         class='form-control'
-                        id='phone'
-                        placeholder='ví dụ: 0918814058'
+                        id='number'
+                        aria-describedby='emailHelp'
+                        placeholder='ví dụ: 20'
                     />
                 </div>
-                {{! <div class="form-check">
-                     <label class="image" for="exampleCheck1">Chọn ảnh đại diện</label>
-                    <input type="file"  id="image">  
-                </div> }}
-                <button type='submit' class='btn btn-primary'>Thêm</button>
+                <div class='form-group'>
+                    <label for='money'>Giá</label>
+                    <input
+                        type='text'
+                        name='money'
+                        class='form-control'
+                        id='money'
+                        aria-describedby='emailHelp'
+                        placeholder='ví dụ: 3000000'
+                    />
+                <div class='form-group'>
+                    <label for='promotion'>Khuyến mãi</label>
+                    <input
+                        type='text'
+                        name='promotion'
+                        class='form-control'
+                        id='promotion'
+                        aria-describedby='emailHelp'
+                        placeholder='ví dụ: 3000000'
+                    />
+                <button type='submit' class='btn btn-primary mt-4'>Thêm</button>
             </form>
         </div>
     </div>
@@ -242,13 +250,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Xóa nhân viên</h5>
+        <h5 class="modal-title">Xóa sản phẩm</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Bạn có muốn xóa nhân viên này?</p>
+        <p>Bạn có muốn xóa sản phẩm này?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Hủy</button>
@@ -263,17 +271,17 @@
 
 <script>
     document.addEventListener("DOMContentLoaded",function(){
-        var staffId;
+        var productId;
         var deleteForm = document.forms['delete-form'];
-         var btnDeleteStaff = document.getElementById('btn-delete-modal');
+         var btnDeleteProduct = document.getElementById('btn-delete-modal');
 
         $('#comfirmDelete').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) ;
-        staffId = button.data('id') ;
+        productId = button.data('id') ;
         });
 
-        btnDeleteStaff.onclick = function(){
-            deleteForm.action = '/staff/delete/save/'+staffId+'?_method=DELETE';
+        btnDeleteProduct.onclick = function(){
+            deleteForm.action = '/product/delete/save/'+productId+'?_method=DELETE';
             deleteForm.submit();
         }
    })

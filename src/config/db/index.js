@@ -18,12 +18,11 @@ module.exports = { connect };
 //     user: "webdienthoai",
 //     password: "",
 //   });
-//  function connect() { 
+//  function connect() {
 //          con.connect((err) =>{
 //         if (err) console.log('connect failure !!');
 //         console.log("Connected!");
 //         });
- 
+
 // };
 // module.exports = { connect };
-
