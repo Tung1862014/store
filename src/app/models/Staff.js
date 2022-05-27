@@ -3,10 +3,11 @@ const Schema = mongoose.Schema;
 
 const Staff = new Schema(
     {
-        stt: { type: Number, required: true },
+        
         name: { type: String, required: true },
         level: { type: String, required: true },
         phone: { type: Number, required: true },
+        slug: { type: String, slug: 'name' , unique: true },
     },
     { timestamps: true },
 );

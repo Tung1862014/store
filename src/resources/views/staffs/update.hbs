@@ -126,7 +126,7 @@
                 </li>
             </ul>
         </div>
-
+        
         <div class='col-sm-7'>
             <table class='table table-striped'>
                 <thead>
@@ -182,37 +182,33 @@
             </table>
         </div>
           <div class='col-2 form-staff'>
-             <form method="POST" action="/staff/insert">
+             <form>
                 <div class="form-group">
                     <label for="name">Tên nhân viên</label>
-                    <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="ví dụ: Nguyễn Thanh Tùng">
+                    <input type="email" class="form-control" id="name" aria-describedby="emailHelp" placeholder="ví dụ: Nguyễn Thanh Tùng" value="{{user.name}}">
                 </div>
-                {{!-- <div class="form-group">
-                    <label for="level">Chọn chức vụ</label>
-                    <input type="text" name="level" class="form-control" id="level" placeholder="ví dụ: 0918814058">
-                </div> --}}
                 <div class="form-group">
                     <label for="level">Chức vụ</label>
-                    <select id="level" class="form-control" name="level">
-						<option class= "level-staff" value="">Chọn chức vụ</option>
-						<option class= "level-staff" value="Kế toán">Kế toán</option>
-						<option class= "level-staff" value="Kỹ sư">Kỹ sư</option>
-						<option class= "level-staff" value="Nhân viên bán hàng">Nhân viên bán hàng</option>
+                    <select id="level" class="form-control" >
+						<option class= "level-staff" value="">{{user.level}}</option>
+						<option class= "level-staff" value="1">Kế toán</option>
+						<option class= "level-staff" value="2">Kỹ sư</option>
+						<option class= "level-staff" value="3">Nhân viên bán hàng</option>
 						</select>
                 </div>
-                {{!-- <div class="form-group">
+                <div class="form-group">
                     <label for="cm">Số CCCD/SCMND</label>
                     <input type="text" class="form-control" id="cm" placeholder="ví dụ: 352637567">
-                </div> --}}
+                </div>
                 <div class="form-group">
                     <label for="phone">Số điện thoại</label>
-                    <input type="text" name="phone" class="form-control" id="phone" placeholder="ví dụ: 0918814058">
+                    <input type="text" class="form-control" id="phone" placeholder="ví dụ: 0918814058" value="{{user.phone}}">
                 </div>
                  {{!-- <div class="form-check">
                      <label class="image" for="exampleCheck1">Chọn ảnh đại diện</label>
                     <input type="file"  id="image">  
                 </div> --}}
-                <button type="submit" class="btn btn-primary">Thêm</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
             </form>
           </div>
     </div>
