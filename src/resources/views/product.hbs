@@ -183,9 +183,37 @@
                     {{/each}}
                 </tbody>
             </table>
+            <nav aria-label='Page navigation example'>
+                <ul class='pagination'>
+                    <li class='page-item'>
+                        <a class='page-link' href='#' aria-label='Previous'>
+                            <span aria-hidden='true'>&laquo;</span>
+                            <span class='sr-only'>Previous</span>
+                        </a>
+                    </li>
+                    <li class='page-item'><a
+                            class='page-link'
+                            href='#'
+                        >1</a></li>
+                    <li class='page-item'><a
+                            class='page-link'
+                            href='#'
+                        >2</a></li>
+                    <li class='page-item'><a
+                            class='page-link'
+                            href='#'
+                        >3</a></li>
+                    <li class='page-item'>
+                        <a class='page-link' href='#' aria-label='Next'>
+                            <span aria-hidden='true'>&raquo;</span>
+                            <span class='sr-only'>Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class='col-2 form-staff'>
-            <form method='POST' action='/product/insert'>
+            <form method='POST' action='/product/insert' enctype='multipart/form-data'>
                 <div class='form-group'>
                     <label for='name'>Tên sản phẩm</label>
                     <input
@@ -193,21 +221,19 @@
                         name='name'
                         class='form-control'
                         id='name'
-                        aria-describedby='emailHelp'
                         placeholder='ví dụ: Màn hình oleg sam sung'
                     /> 
                 </div>
-                 {{!-- <div class='form-group'>
-                    <label for='image' class='image-product'>Chọn file ảnh</label>
+                 <div class='form-group'>
+                    {{!-- <label for='image' class='image-product'>Chọn file ảnh</label> --}}
                     <input
                         type='file'
                         name='image'
                         class='form-control'
-                        id='image'
-                        aria-describedby='emailHelp'
-                        style='display:none;'
+                        multiple="multiple"
+                        {{!-- style='display:none;' --}}
                     />
-                </div> --}}
+                </div>
                  <div class='form-group'>
                     <label for='number'>Số lượng</label>
                     <input

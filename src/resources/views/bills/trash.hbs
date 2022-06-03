@@ -1,6 +1,6 @@
 <div class='mt-4'>
     <div class='row' style='margin-left: -180px;min-width: 1470px;'>
-        <div class='col-3'>
+        <div class='col-2.5'>
             <ul class='nav nav-pills flex-column'>
                 <li class='nav-item'>
                     <a class='nav-link' href='/'><svg
@@ -18,7 +18,7 @@
                         Trang chủ</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link ' href='/staff'><svg
+                    <a class='nav-link' href='/staff'><svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='16'
                             height='16'
@@ -60,7 +60,7 @@
                     <a class='nav-link active' href='/bill'><svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='16'
-                            height='16' 
+                            height='16'
                             fill='currentColor'
                             class='bi bi-receipt-cutoff'
                             viewBox='0 0 16 16'
@@ -75,7 +75,7 @@
                         Đơn hàng</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link ' href='/product'><svg
+                    <a class='nav-link' href='/product'><svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='16'
                             height='16'
@@ -90,7 +90,7 @@
                         Quản lý sản phẩm</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link ' href='/supplier'><svg
+                    <a class='nav-link' href='/supplier'><svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='16'
                             height='16'
@@ -127,33 +127,79 @@
             </ul>
         </div>
 
-        <div class='col-9'>
+        <form
+            class='col-10'
+            name='container-form'
+            method='POST'
+            action='/bill/handle-form-restore'
+        >
             <div>
-                <a href="/bill">Danh sách đơn hàng</a>
+                <a href='/bill'>Danh sách đơn hàng</a>
                 <h3>Đơn hàng</h3>
+                <div class='mt-4 mb-4 d-flex align-items-center'>
+                    <div class='form-check'>
+                        <input
+                            class='form-check-input'
+                            type='checkbox'
+                            value=''
+                            id='checkbox-all'
+                        />
+                        <label class='form-check-label' for='checkbox-all'>
+                            Chọn tất cả
+                        </label>
+                    </div>
+                    <select
+                        class='form-control form-control-sm checkbox-select-all-options'
+                        name='action'
+                        required
+                    >
+                        <option value=''>-- Chọn hàng động--</option>
+                        <option value='restore'>-- Khôi phục --</option>
+                    </select>
+                    <button
+                        class='btn btn-primary check-all-submit-btn'
+                        disabled='disabled'
+                    > Thực hiện</button>
+                </div>
             </div>
             <table class='table table-striped'>
                 <thead>
                     <tr>
-                        <th scope='col'>Số thứ tự</th>
+                        <th scope='col' colspan='2'>Số thứ tự</th>
                         <th scope='col'>Sản phẩm</th>
                         <th scope='col'>Nhân viên</th>
                         <th scope='col'>Khách hàng</th>
                         <th scope='col'>Trạng thái</th>
+                        <th scope='col'>Thời gian xóa</th>
                         <th scope='col'>Khôi phục</th>
                         <th scope='col'>Xóa vĩnh viễn</th>
                     </tr>
                 </thead>
                 <tbody>
-                     {{#each bills}}
+                    {{#each bills}}
                         <tr>
+                            <td>
+                                <div class='form-check'>
+                                    <input
+                                        class='form-check-input'
+                                        type='checkbox'
+                                        name='billIds[]'
+                                        value='{{this._id}}'
+                                    />
+                                </div>
+                            </td>
                             <th scope='row'>{{sum @index 1}}</th>
                             <td>{{this.name}}</td>
                             <td>{{this.nameNV}}</td>
                             <td>{{this.nameKH}}</td>
                             <td>{{this.status}}</td>
+                            <td>{{this.deletedAt}}</td>
                             <td>
-                                <a href='' class="btn btn-link btn-restore" data-id="{{this._id}}">
+                                <a
+                                    href=''
+                                    class='btn btn-link btn-restore'
+                                    data-id='{{this._id}}'
+                                >
                                     <svg
                                         xmlns='http://www.w3.org/2000/svg'
                                         width='16'
@@ -170,87 +216,99 @@
                             </td>
 
                             <td><a href='#'>
-                                <svg
-                                    xmlns='http://www.w3.org/2000/svg'
-                                    width='16'
-                                    height='16'
-                                    fill='currentColor'
-                                    data-toggle="modal" 
-                                    data-id="{{this._id}}"
-                                    data-target="#comfirmDelete"
-                                    class='bi bi-x'
-                                    viewBox='0 0 16 16'
+                                    <svg
+                                        xmlns='http://www.w3.org/2000/svg'
+                                        width='16'
+                                        height='16'
+                                        fill='currentColor'
+                                        data-toggle='modal'
+                                        data-id='{{this._id}}'
+                                        data-target='#comfirmDelete'
+                                        class='bi bi-x'
+                                        viewBox='0 0 16 16'
                                     >
-                                    <path
-                                        d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'
-                                    ></path>
-                                </svg>
+                                        <path
+                                            d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'
+                                        ></path>
+                                    </svg>
                                 </a>
                             </td>
                         </tr>
                     {{else}}
                         <tr>
-                            <td colspan="5" class="text-center">
-                               Thùng rác trống.<a href="/bill">Danh sách đơn hàng</a>
+                            <td colspan='5' class='text-center'>
+                                Thùng rác trống.<a href='/bill'>Danh sách đơn
+                                    hàng</a>
                             </td>
                         </tr>
                     {{/each}}
                 </tbody>
             </table>
+        </form>
+    </div>
+</div>
+{{! Comform delete  }}
+<div class='modal' id='comfirmDelete' tabindex='-1' role='dialog'>
+    <div class='modal-dialog' role='document'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title'>Xóa nhà cung cấp</h5>
+                <button
+                    type='button'
+                    class='close'
+                    data-dismiss='modal'
+                    aria-label='Close'
+                >
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>
+            <div class='modal-body'>
+                <p>Hành động này không thể khôi phục.Bạn có muốn xóa đơn hàng
+                    này?</p>
+            </div>
+            <div class='modal-footer'>
+                <button
+                    type='button'
+                    class='btn btn-primary'
+                    data-dismiss='modal'
+                >Hủy</button>
+                <button
+                    id='btn-delete-modal'
+                    type='button'
+                    class='btn btn-danger'
+                >Xóa vĩnh viễn</button>
+            </div>
         </div>
     </div>
 </div>
-{{!-- Comform delete  --}}
-<div class="modal" id="comfirmDelete" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Xóa nhà cung cấp</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Hành động này không thể khôi phục.Bạn có muốn xóa đơn hàng này?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Hủy</button>
-        <button id="btn-delete-modal" type="button"  class="btn btn-danger">Xóa vĩnh viễn</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-{{!-- Delete hidden form --}}
-<form name="delete-form" method='POST' ></form>
-<form name="restore-form" method='POST' ></form>
+{{! Delete hidden form }}
+<form name='delete-form' method='POST'></form>
+<form name='restore-form' method='POST'></form>
 
 <script>
-    document.addEventListener("DOMContentLoaded",function(){
-        var billId;
-        var deleteForm = document.forms['delete-form'];
-         var restoreForm = document.forms['restore-form'];
-        var btnDeleteBill = document.getElementById('btn-delete-modal');
-        var restoreBtn = $('.btn-restore');
-
-        $('#comfirmDelete').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) ;
-        billId = button.data('id') ;
-        });
-
-        btnDeleteBill.onclick = function(){
-            deleteForm.action = '/bill/delete/save/'+billId+'/force?_method=DELETE';
-            deleteForm.submit();
-        }
-
-        //Restore btn clicked
-        restoreBtn.click(function(e){
-            e.preventDefault();
-            var billId = $(this).data('id');
-            restoreForm.action = '/bill/'+billId+'/restore?_method=PATCH';
-            restoreForm.submit();
-
-
-        })
-   })
+    document.addEventListener("DOMContentLoaded",function(){ var billId; var
+    deleteForm = document.forms['delete-form']; var restoreForm =
+    document.forms['restore-form']; var containerForm =
+    $('form[name="container-form"'); var btnDeleteBill =
+    document.getElementById('btn-delete-modal'); var restoreBtn =
+    $('.btn-restore'); var checkboxAll = $('#checkbox-all'); var
+    billItemCheckbox = $('input[name="billIds[]"]'); var checkAllSubmitBtn =
+    $('.check-all-submit-btn'); $('#comfirmDelete').on('show.bs.modal', function
+    (event) { var button = $(event.relatedTarget) ; billId = button.data('id') ;
+    }); btnDeleteBill.onclick = function(){ deleteForm.action =
+    '/bill/delete/save/'+billId+'/force?_method=DELETE'; deleteForm.submit(); }
+    //Restore btn clicked restoreBtn.click(function(e){ e.preventDefault(); var
+    billId = $(this).data('id'); restoreForm.action =
+    '/bill/'+billId+'/restore?_method=PATCH'; restoreForm.submit(); }) //
+    Checkbox all change checkboxAll.change(function(){ var isCheckedAll =
+    $(this).prop('checked'); billItemCheckbox.prop('checked', isCheckedAll);
+    renderCheckAllSubmitBtn(); }) // Bill item checkbox clicked
+    billItemCheckbox.change(function(){ var isCheckedAll =
+    billItemCheckbox.length === $('input[name="billIds[]"]:checked').length;
+    checkboxAll.prop('checked', isCheckedAll); renderCheckAllSubmitBtn(); })
+    //re-render function renderCheckAllSubmitBtn(){ var checkedCount =
+    $('input[name="billIds[]"]:checked').length; if(checkedCount > 0){
+    checkAllSubmitBtn.removeAttr('disabled',false); } else{
+    checkAllSubmitBtn.attr('disabled',true); } } })
 </script>

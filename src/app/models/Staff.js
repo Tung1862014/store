@@ -1,14 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Int32 = require('mongoose-int32').loadType(mongoose);
+const mongooseDelete = require('mongoose-delete');
 
 const Staff = new Schema(
     {
         name: { type: String, required: true },
         level: { type: String, required: true },
-        phone: { type: Number, required: true },
-        slug: { type: String, slug: 'name', unique: true },
+        phone: { type: Int32, required: true },
     },
     { timestamps: true },
 );
-
+Staff.plugin(mongooseDelete, {
+    deletedAt: true,
+    overrideMethods: 'all',
+});
 module.exports = mongoose.model('User', Staff);

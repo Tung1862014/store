@@ -3,7 +3,7 @@
         <div class='col-sm-3'>
             <ul class='nav nav-pills flex-column'>
                 <li class='nav-item'>
-                    <a class='nav-link ' href='/'><svg
+                    <a class='nav-link' href='/'><svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='16'
                             height='16'
@@ -57,7 +57,7 @@
                         Khách hàng</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link active' href='#'><svg
+                    <a class='nav-link active' href='/bill'><svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='16'
                             height='16'
@@ -127,65 +127,116 @@
             </ul>
         </div>
 
-        <div class='col-sm-9'>
+        <form
+            class='col-sm-9'
+            name='container-form'
+            method='POST'
+            action='/bill/handle-form-action'
+        >
             <div>
                 <h3>Đơn hàng</h3>
-                <a href="bill/trash">Thùng rác</a>
+                <a href='bill/trash'>Thùng rác ({{deleteBill}})</a>
+                <div class='mt-4 mb-4 d-flex align-items-center'>
+                    <div class='form-check'>
+                        <input
+                            class='form-check-input'
+                            type='checkbox'
+                            value=''
+                            id='checkbox-all'
+                        />
+                        <label class='form-check-label' for='checkbox-all'>
+                            Chọn tất cả
+                        </label>
+                    </div>
+                    <select
+                        class='form-control form-control-sm checkbox-select-all-options'
+                        name='action'
+                        required
+                    >
+                        <option value=''>-- Chọn hàng động--</option>
+                        <option value='delete'>-- Xóa --</option>
+                    </select>
+                    <button
+                        class='btn btn-primary check-all-submit-btn'
+                        disabled='disabled'
+                    > Thực hiện</button>
+                </div>
             </div>
             <table class='table table-striped'>
                 <thead>
-                     <tr>
-                        <th scope='col'>Đơn Hàng</th>
-                    </tr>
                     <tr>
-                        <th scope='col'>Số thứ tự</th>
+                        <th scope='col' colspan='2'>Số thứ tự</th>
                         <th scope='col'>Sản phẩm</th>
                         <th scope='col'>Nhân viên</th>
                         <th scope='col'>Khách hàng</th>
                         <th scope='col'>Trạng thái</th>
                         <th scope='col'>Xóa</th>
-                         <th scope='col'>Cập nhật</th>
+                        <th scope='col'>Cập nhật</th>
+                        <th scope='col'>Chi tiết</th>
                     </tr>
                 </thead>
                 <tbody>
-                     {{#each bills}}
-                    <form method='POST' action='bill/update/save/{{this._id}}?_method=PUT'>
+                    {{#each bills}}
+                        <form name='update-form' method='POST'></form>
                         <tr>
+                            <td>
+                                <div class='form-check'>
+                                    <input
+                                        class='form-check-input'
+                                        type='checkbox'
+                                        name='billIds[]'
+                                        value='{{this._id}}'
+                                    />
+                                </div>
+                            </td>
                             <th scope='row'>{{sum @index 1}}</th>
                             <td>{{this.name}}</td>
                             <td>{{this.nameNV}}</td>
                             <td>{{this.nameKH}}</td>
                             <td>
-                                <select id='status' class='form-control' name='status'>
-                                        <option class='status-staff' value='{{this.status}}'>{{this.status}}</option>
-                                    {{!-- if ({{this.status}} == 'Hạn chế' ) --}}
-                                        <option class='status-staff' value='Đang xử lý'>Đang xử lý</option>
-                                        {{!-- else --}}
-                                        <option class='status-staff' value='Đã xử lý'>Đã xử lý</option>
-                                        <option class='status-staff' value='Đã giao hàng'>Đã giao hàng</option>
-                                        <option class='status-staff' value='Hủy đơn hàng'>Hủy đơn hàng</option>
+
+                                <form
+                                    name='update-form-{{this._id}}'
+                                    method='POST'
+                                >
+                                    <select class='form-control' name='status'>
+                                        <option
+                                            value='{{this.status}}'
+                                        >{{this.status}}</option>
+                                        <option value='Đang xử lý'>Đang xử lý</option>
+                                        <option value='Đã xử lý'>Đã xử lý</option>
+                                        <option value='Đã giao hàng'>Đã giao
+                                            hàng</option>
+                                        <option value='Hủy đơn hàng'>Hủy đơn
+                                            hàng</option>
                                     </select>
+                                </form>
                             </td>
                             <td><a href='#'>
-                                <svg
-                                    xmlns='http://www.w3.org/2000/svg'
-                                    width='16'
-                                    height='16'
-                                    fill='currentColor'
-                                    data-toggle="modal" 
-                                    data-id="{{this._id}}"
-                                    data-target="#comfirmDelete"
-                                    class='bi bi-x'
-                                    viewBox='0 0 16 16'
+                                    <svg
+                                        xmlns='http://www.w3.org/2000/svg'
+                                        width='16'
+                                        height='16'
+                                        fill='currentColor'
+                                        data-toggle='modal'
+                                        data-id='{{this._id}}'
+                                        data-target='#comfirmDelete'
+                                        class='bi bi-x'
+                                        viewBox='0 0 16 16'
                                     >
-                                    <path
-                                        d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'
-                                    ></path>
-                                </svg>
+                                        <path
+                                            d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'
+                                        ></path>
+                                    </svg>
                                 </a>
                             </td>
+
                             <td>
-                                <button type='submit'>
+                                <a
+                                    href=''
+                                    class='btn btn-link btn-update'
+                                    data-id='{{this._id}}'
+                                >
                                     <svg
                                         xmlns='http://www.w3.org/2000/svg'
                                         width='16'
@@ -193,66 +244,140 @@
                                         fill='currentColor'
                                         class='bi bi-tools'
                                         viewBox='0 0 16 16'
-                                        >
-                                            <path
-                                                d='M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0Zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708ZM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11Z'
-                                            ></path>
-                                        </svg>
-                                </button>
+                                    >
+                                        <path
+                                            d='M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0Zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708ZM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11Z'
+                                        ></path>
+                                    </svg>
+                                </a>
+                            </td>
+                            <td>
+                                <a
+                                    href='/bill/detail/{{this._id}}'
+                                >
+                                    <svg
+                                        xmlns='http://www.w3.org/2000/svg'
+                                        width='16'
+                                        height='16'
+                                        fill='currentColor'
+                                        class='bi bi-eye'
+                                        viewBox='0 0 16 16'
+                                    >
+                                        <path
+                                            d='M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z'
+                                        ></path>
+                                        <path
+                                            d='M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z'
+                                        ></path>
+                                    </svg>
+                                </a>
                             </td>
                         </tr>
-                    </form>
                     {{else}}
                         <tr>
-                            <td colspan="5" class="text-center">
-                                Bạn chưa thêm nhà cung cấp nào.
+                            <td colspan='5' class='text-center'>
+                                Bạn chưa có đơn hàng.
                             </td>
                         </tr>
+
                     {{/each}}
+
                 </tbody>
             </table>
-            
+
+        </form>
+        <nav aria-label='Page navigation example'>
+                <ul class='pagination'>
+                    <li class='page-item'>
+                        <a class='page-link' href='#' aria-label='Previous'>
+                            <span aria-hidden='true'>&laquo;</span>
+                            <span class='sr-only'>Previous</span>
+                        </a>
+                    </li>
+                    <li class='page-item'><a
+                            class='page-link'
+                            href='#'
+                        >1</a></li>
+                    <li class='page-item'><a
+                            class='page-link'
+                            href='#'
+                        >2</a></li>
+                    <li class='page-item'><a
+                            class='page-link'
+                            href='#'
+                        >3</a></li>
+                    <li class='page-item'>
+                        <a class='page-link' href='#' aria-label='Next'>
+                            <span aria-hidden='true'>&raquo;</span>
+                            <span class='sr-only'>Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+    </div>
+</div>
+{{! Comform delete  }}
+<div class='modal' id='comfirmDelete' tabindex='-1' role='dialog'>
+    <div class='modal-dialog' role='document'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title'>Xóa đơn hàng</h5>
+                <button
+                    type='button'
+                    class='close'
+                    data-dismiss='modal'
+                    aria-label='Close'
+                >
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>
+            <div class='modal-body'>
+                <p>Bạn có muốn xóa đơn hàng này?</p>
+            </div>
+            <div class='modal-footer'>
+                <button
+                    type='button'
+                    class='btn btn-primary'
+                    data-dismiss='modal'
+                >Hủy</button>
+                <button
+                    id='btn-delete-modal'
+                    type='button'
+                    class='btn btn-danger'
+                >Xóa bỏ</button>
+            </div>
         </div>
     </div>
 </div>
-{{!-- Comform delete  --}}
-<div class="modal" id="comfirmDelete" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Xóa đơn hàng</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Bạn có muốn xóa đơn hàng này?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Hủy</button>
-        <button id="btn-delete-modal" type="button"  class="btn btn-danger">Xóa bỏ</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-{{!-- Delete hidden form --}}
-<form name="delete-form" method='POST' ></form>
+{{! Delete hidden form }}
+<form name='delete-form' method='POST'></form>
 
 <script>
-    document.addEventListener("DOMContentLoaded",function(){
-        var billId;
-        var deleteForm = document.forms['delete-form'];
-         var btnDeleteBill = document.getElementById('btn-delete-modal');
-
-        $('#comfirmDelete').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) ;
-        billId = button.data('id') ;
-        });
-
-        btnDeleteBill.onclick = function(){
-            deleteForm.action = '/bill/delete/save/'+billId+'?_method=DELETE';
-            deleteForm.submit();
-        }
-   })
+    document.addEventListener("DOMContentLoaded",function(){ var billId; var
+    deleteForm = document.forms['delete-form']; //var containerForm =
+    document.forms['container-form']; var containerForm =
+    $('form[name="container-form"'); var btnDeleteBill =
+    document.getElementById('btn-delete-modal'); var updateBtn =
+    $('.btn-update'); var checkboxAll = $('#checkbox-all'); var billItemCheckbox
+    = $('input[name="billIds[]"]'); var checkAllSubmitBtn =
+    $('.check-all-submit-btn'); $('#comfirmDelete').on('show.bs.modal', function
+    (event) { var button = $(event.relatedTarget) ; billId = button.data('id') ;
+    }); btnDeleteBill.onclick = function(){ deleteForm.action =
+    '/bill/delete/save/'+billId+'?_method=DELETE'; deleteForm.submit(); }
+    //Update btn clicked updateBtn.click(function(e){ e.preventDefault(); var
+    billId = $(this).data('id'); var updateForm =
+    document.forms[`update-form-${billId}`]; updateForm.action =
+    'bill/update/save/'+billId+'?_method=PUT'; updateForm.submit();
+    console.log(updateForm); }) // Checkbox all change
+    checkboxAll.change(function(){ var isCheckedAll = $(this).prop('checked');
+    billItemCheckbox.prop('checked', isCheckedAll); renderCheckAllSubmitBtn();
+    }) // Bill item checkbox clicked billItemCheckbox.change(function(){ var
+    isCheckedAll = billItemCheckbox.length ===
+    $('input[name="billIds[]"]:checked').length; checkboxAll.prop('checked',
+    isCheckedAll); renderCheckAllSubmitBtn(); }) //re-render function
+    renderCheckAllSubmitBtn(){ var checkedCount =
+    $('input[name="billIds[]"]:checked').length; if(checkedCount > 0){
+    checkAllSubmitBtn.removeAttr('disabled',false); } else{
+    checkAllSubmitBtn.attr('disabled',true); } } console.log(containerForm) })
 </script>

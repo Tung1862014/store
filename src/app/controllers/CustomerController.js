@@ -7,10 +7,11 @@ class CustomerController {
     //[GET]  /customer
     index(req, res, next) {
         //
-        Customer.find({})
-            .then((customers) => {
+        Promise.all([Customer.find({}), req.cookies.nameuser])
+            .then(([customers, usecooki]) => {
                 res.render('customer', {
                     customers: multipleMongooseToObject(customers),
+                    usecooki,
                 });
             })
             .catch(next);
@@ -19,10 +20,9 @@ class CustomerController {
     update(req, res, next) {
         // res.json(req.body)
         // res.json(req.params.id);
-        Customer.updateOne({_id: req.params.id}, req.body)
+        Customer.updateOne({ _id: req.params.id }, req.body)
             .then(() => res.redirect('/customer'))
             .catch(next);
-        
     }
 }
 

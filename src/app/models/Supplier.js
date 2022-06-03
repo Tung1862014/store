@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Int32 = require("mongoose-int32").loadType(mongoose);
+const Int32 = require('mongoose-int32').loadType(mongoose);
 const Schema = mongoose.Schema;
 const mongooseDelete = require('mongoose-delete');
 
@@ -15,9 +15,9 @@ const Supplier = new Schema(
 
 //Add plugins
 // mongoose.plugin(slug);
-Supplier.plugin(mongooseDelete, { 
-    deletedAt : true,
-    overrideMethods: 'all' 
+Supplier.plugin(mongooseDelete, {
+    deletedAt: true,
+    overrideMethods: 'all',
 });
 
 module.exports = mongoose.model('Supplier', Supplier);

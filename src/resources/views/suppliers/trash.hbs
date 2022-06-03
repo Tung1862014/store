@@ -18,7 +18,7 @@
                         Trang chủ</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link ' href='/staff'><svg
+                    <a class='nav-link' href='/staff'><svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='16'
                             height='16'
@@ -75,7 +75,7 @@
                         Đơn hàng</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link ' href='/product'><svg
+                    <a class='nav-link' href='/product'><svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='16'
                             height='16'
@@ -129,7 +129,7 @@
 
         <div class='col-9'>
             <div>
-                <a href="/supplier">Danh sách nhà cung cấp</a>
+                <a href='/supplier'>Danh sách nhà cung cấp</a>
                 <h3>Nhà cung cấp đã xóa</h3>
             </div>
             <table class='table table-striped'>
@@ -150,7 +150,11 @@
                             <td>{{this.number}}</td>
 
                             <td>
-                                <a href='' class="btn btn-link btn-restore" data-id="{{this._id}}">
+                                <a
+                                    href=''
+                                    class='btn btn-link btn-restore'
+                                    data-id='{{this._id}}'
+                                >
                                     <svg
                                         xmlns='http://www.w3.org/2000/svg'
                                         width='16'
@@ -171,9 +175,9 @@
                                         width='16'
                                         height='16'
                                         fill='currentColor'
-                                        data-toggle="modal" 
-                                        data-id="{{this._id}}"
-                                        data-target="#comfirmDelete"
+                                        data-toggle='modal'
+                                        data-id='{{this._id}}'
+                                        data-target='#comfirmDelete'
                                         class='bi bi-x'
                                         viewBox='0 0 16 16'
                                     >
@@ -182,10 +186,11 @@
                                         ></path>
                                     </svg></a></td>
                         </tr>
-                        {{else}}
+                    {{else}}
                         <tr>
-                            <td colspan="5" class="text-center">
-                               Thùng rác trống.<a href="/supplier">Danh sách nhà cung cấp</a>
+                            <td colspan='5' class='text-center'>
+                                Thùng rác trống.<a href='/supplier'>Danh sách
+                                    nhà cung cấp</a>
                             </td>
                         </tr>
                     {{/each}}
@@ -194,57 +199,56 @@
         </div>
     </div>
 </div>
-{{!-- Comform delete  --}}
-<div class="modal" id="comfirmDelete" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Xóa nhà cung cấp</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Hành động này không thể khôi phục.Bạn có muốn xóa nhà cung cấp này?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Hủy</button>
-        <button id="btn-delete-modal" type="button"  class="btn btn-danger">Xóa vĩnh viễn</button>
-      </div>
+{{! Comform delete  }}
+<div class='modal' id='comfirmDelete' tabindex='-1' role='dialog'>
+    <div class='modal-dialog' role='document'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title'>Xóa nhà cung cấp</h5>
+                <button
+                    type='button'
+                    class='close'
+                    data-dismiss='modal'
+                    aria-label='Close'
+                >
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>
+            <div class='modal-body'>
+                <p>Hành động này không thể khôi phục.Bạn có muốn xóa nhà cung
+                    cấp này?</p>
+            </div>
+            <div class='modal-footer'>
+                <button
+                    type='button'
+                    class='btn btn-primary'
+                    data-dismiss='modal'
+                >Hủy</button>
+                <button
+                    id='btn-delete-modal'
+                    type='button'
+                    class='btn btn-danger'
+                >Xóa vĩnh viễn</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
-{{!-- Delete hidden form --}}
-<form name="delete-form" method='POST' ></form>
-<form name="restore-form" method='POST' ></form>
+{{! Delete hidden form }}
+<form name='delete-form' method='POST'></form>
+<form name='restore-form' method='POST'></form>
 
 <script>
-    document.addEventListener("DOMContentLoaded",function(){
-        var supplierId;
-        var deleteForm = document.forms['delete-form'];
-         var restoreForm = document.forms['restore-form'];
-        var btnDeleteSupplier = document.getElementById('btn-delete-modal');
-        var restoreBtn = $('.btn-restore');
-
-        $('#comfirmDelete').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) ;
-        supplierId = button.data('id') ;
-        });
-
-        btnDeleteSupplier.onclick = function(){
-            deleteForm.action = '/supplier/delete/save/'+supplierId+'/force?_method=DELETE';
-            deleteForm.submit();
-        }
-
-        //Restore btn clicked
-        restoreBtn.click(function(e){
-            e.preventDefault();
-            var supplierId = $(this).data('id');
-            restoreForm.action = '/supplier/'+supplierId+'/restore?_method=PATCH';
-            restoreForm.submit();
-
-
-        })
-   })
+    document.addEventListener("DOMContentLoaded",function(){ var supplierId; var
+    deleteForm = document.forms['delete-form']; var restoreForm =
+    document.forms['restore-form']; var btnDeleteSupplier =
+    document.getElementById('btn-delete-modal'); var restoreBtn =
+    $('.btn-restore'); $('#comfirmDelete').on('show.bs.modal', function (event)
+    { var button = $(event.relatedTarget) ; supplierId = button.data('id') ; });
+    btnDeleteSupplier.onclick = function(){ deleteForm.action =
+    '/supplier/delete/save/'+supplierId+'/force?_method=DELETE';
+    deleteForm.submit(); } //Restore btn clicked restoreBtn.click(function(e){
+    e.preventDefault(); var supplierId = $(this).data('id'); restoreForm.action
+    = '/supplier/'+supplierId+'/restore?_method=PATCH'; restoreForm.submit(); })
+    })
 </script>

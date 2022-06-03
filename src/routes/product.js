@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+// const multer = require('multer');
+const upload = require('../middleware/upload');
+// var upload = multer({ dest:'../images/' });
 
 const productController = require('../app/controllers/ProductController');
-router.post('/insert', productController.inserts);
+router.post('/insert',upload.array('image',12), productController.inserts);
 
 router.put('/update/save/:id', productController.update);
 

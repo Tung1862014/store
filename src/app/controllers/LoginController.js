@@ -1,14 +1,14 @@
-const Staff = require('../models/Staff');
+const Customer = require('../models/Customer');
 const {
     multipleMongooseToObject,
     mongooseToObject,
 } = require('../../util/mongoose');
 
-class StaffController {
+class CustomerController {
     //[GET]  /staff
     index(req, res, next) {
         //
-        res.render('loginForm/login')
+        res.render('loginForm/login');
         // Staff.find({})
         //     .then((users) => {
         //         res.render('staff', {
@@ -28,7 +28,7 @@ class StaffController {
     //             });
     //         })
     //         .catch(next);
-        
+
     // }
     // //[PUT] /update/save
     // update(req, res, next) {
@@ -37,19 +37,55 @@ class StaffController {
     //     Staff.updateOne({_id: req.params.id}, req.body)
     //         .then(() => res.redirect('/staff'))
     //         .catch(next);
-        
+
     // }
 
     // //[POST]  /staffs/insert
-    // inserts(req, res, next) {
-    //     //
+    test(req, res, next) {
+        //
+        // Customer.findOne({nameuser: req.body.name},function (err, docs) {
+        //     if (err){
+        //         console.log(err)
+        //     }
+        //     else{
+        //         res.json(docs);
+        // }})
+        Customer.findOne({
+            nameuser: req.body.name,
+            password: req.body.password,
+        })
+            .then((customers) => {
+                // res.json(customers)
+                if (customers != null) {
+                    // res.render('home', {
+                    //     customers: mongooseToObject(customers),
+                    // });
+                    res.cookie('nameuser', mongooseToObject(customers), {
+                        expires: new Date(Date.now() + 900000),
+                    });
+                    res.redirect('/');
+                } else {
+                    alert('Tài khoản không tồn tại');
+                }
+            })
+            .catch((error) => {
+                res.send('Tài khoản không tồn tại');
+            });
 
-    //     const formData = req.body;
-    //     const user = new Staff(formData);
-    //     user.save()
-    //         .then(() => res.redirect('/staff'))
-    //         .catch((error) => {});
-    // }
+        // const formData = req.body;
+        // const user = new Staff(formData);
+        // user.save()
+        //     .then(() => res.redirect('/staff'))
+        //     .catch((error) => {});
+    }
+    logout(req, res, next) {
+        try {
+            res.clearCookie('nameuser');
+            res.redirect('/login');
+        } catch (error) {
+            res.send('looi logout');
+        }
+    }
 }
 
-module.exports = new StaffController();
+module.exports = new CustomerController();

@@ -9,6 +9,6 @@ const staffController = require('../app/controllers/StaffController');
 
 // router.get('/update/:id', staffController.edit);
 
-router.get('/', homeController.index );
+router.get('/', homeController.index);
 
 module.exports = router;

@@ -3,14 +3,25 @@ const express = require('express');
 const morgan = require('morgan');
 const { engine } = require('express-handlebars');
 const methodOverride = require('method-override');
+const cookieParser = require('cookie-parser');
 const app = express();
 const port = 3001;
+
+app.use(cookieParser());
 
 const route = require('./routes');
 
 const db = require('./config/db');
 
-//coonnect to DB
+//connect to DB
+// function connect() {
+//     db.connect((err) =>{
+//     if (err)
+//         console.log('connect failure !!')
+//     else
+//         console.log("Connected!");
+//     });
+// };
 db.connect();
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -33,8 +44,8 @@ app.engine(
     engine({
         extname: '.hbs',
         helpers: {
-            sum: (a, b) => a+b,
-        }
+            sum: (a, b) => a + b,
+        },
     }),
 );
 app.set('view engine', 'hbs');

@@ -59,3 +59,7 @@ a {
 
 .image-product:hover {
   background-color: #d9d7d7; }
+
+.checkbox-select-all-options {
+  width: 180px;
+  margin: 0 5px; }

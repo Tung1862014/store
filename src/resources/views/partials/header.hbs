@@ -1,33 +1,38 @@
-<nav class='navbar navbar-expand-lg navbar bg-dark'>
-    <img class='img-logo-header' src="http://tinhocachau.com.vn/www/wp-content/uploads/2018/06/12096120_912511945506191_3100367481823529823_n.jpg" alt="IMG">
-    <a class='navbar-brand' href='/'>Tin Học Á Châu</a>
-    <button
-        class='navbar-toggler'
-        type='button'
-        data-toggle='collapse'
-        data-target='#navbarSupportedContent'
-        aria-controls='navbarSupportedContent'
-        aria-expanded='false'
-        aria-label='Toggle navigation'
-    >
-        <span class='navbar-toggler-icon'></span>
-    </button>
+<nav class='navbar navbar-expand-lg navbar bg-dark '>
+    <div class="navbar mr-4 ml-4">
+        <img class='img-logo-header' src="http://tinhocachau.com.vn/www/wp-content/uploads/2018/06/12096120_912511945506191_3100367481823529823_n.jpg" alt="IMG">
+        <a class='navbar-brand' href='/'>Tin Học Á Châu</a>
+        <button
+            class='navbar-toggler'
+            type='button'
+            data-toggle='collapse'
+            data-target='#navbarSupportedContent'
+            aria-controls='navbarSupportedContent'
+            aria-expanded='false'
+            aria-label='Toggle navigation'
+        >
+            <span class='navbar-toggler-icon'></span>
+        </button>
 
-    <div class='collapse navbar-collapse' id='navbarSupportedContent'>
-        
-        <ul class='navbar-nav ml-auto '>
+        <div class='collapse navbar-collapse ml-auto' id='navbarSupportedContent'>
             
-            <li class="nav-item dropdown">
-                <a class=" dropdown-toggle navbar-log" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/ea0854578085ab26effc2c7b8cefa270~c5_100x100.jpeg?x-expires=1653631200&x-signature=BCycC3bhGYTz5CXjQVvduN0r9lo%3D" class="rounded-circle" alt="Cinque Terre" width="30" height="30"> 
-                Hoa
-                </a>
-                <div class="dropdown-menu  dropdown-menu-local" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/login">Đăng nhập</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Đăng xuất</a>
-                </div>
-            </li>
-        </ul>
+            <ul class='navbar-nav mr-auto '>
+                
+                <li class="nav-item dropdown">
+                
+                        <a class=" dropdown-toggle navbar-log" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{#if usecooki}}
+                        <img src="https://yt3.ggpht.com/yti/APfAmoHqQws7NifVk4WMh6yNcebHXQKJG1TBA8B8CRxswg=s88-c-k-c0x00ffffff-no-rj-mo" class="rounded-circle" alt="#" width="30" height="30"> 
+                        {{usecooki.nameuser}}
+                        </a>
+                    {{/if}}
+                    <div class="dropdown-menu  dropdown-menu-local" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/login">Đăng nhập</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/login/logout">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>

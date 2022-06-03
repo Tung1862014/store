@@ -127,7 +127,10 @@
             </ul>
         </div>
         <div class='col-9 form-staff'>
-            <form method='POST' action="/staff/update/save/{{user._id}}?_method=PUT">
+            <form
+                method='POST'
+                action='/staff/update/save/{{user._id}}?_method=PUT'
+            >
                 <div class='form-group'>
                     <label for='name'>Tên nhân viên</label>
                     <input
@@ -149,7 +152,10 @@
                         >{{user.level}}</option>
                         <option class='level-staff' value='Kế toán'>Kế toán</option>
                         <option class='level-staff' value='Kỹ sư'>Kỹ sư</option>
-                        <option class='level-staff' value='Nhân viên bán hàng'>Nhân viên bán hàng</option>
+                        <option
+                            class='level-staff'
+                            value='Nhân viên bán hàng'
+                        >Nhân viên bán hàng</option>
                     </select>
                 </div>
                 {{! <div class="form-group">

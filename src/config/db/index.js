@@ -13,16 +13,11 @@ module.exports = { connect };
 
 // const mysql = require('mysql');
 
-// const con = mysql.createConnection({
+// const conn = mysql.createConnection({
 //     host: "localhost",
-//     user: "webdienthoai",
+//     user: "root",
 //     password: "",
+//     database: "webdienthoai",
 //   });
-//  function connect() {
-//          con.connect((err) =>{
-//         if (err) console.log('connect failure !!');
-//         console.log("Connected!");
-//         });
 
-// };
-// module.exports = { connect };
+// module.exports = conn;

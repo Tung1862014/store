@@ -3,32 +3,32 @@
 body {
     font-size: 1.2rem;
 }
-a{
-	text-decoration:none;
+a {
+    text-decoration: none;
 }
 //header
-.navbar-log{
+.navbar-log {
     padding-right: 0.5rem;
     padding-left: 3.5rem;
     width: 80px;
     position: relative;
     right: 0.5rem;
 }
-.img-logo-header{
-	width: 50px;
-	height: 50px;
-	position: relative;
-	right: 0.5rem;
+.img-logo-header {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    right: 0.5rem;
 }
 //home
-.jumbotron-size{
-	padding: 1.5rem 2rem;
+.jumbotron-size {
+    padding: 1.5rem 2rem;
 }
-.icon-home{
-	position: relative;
-	float: right;
-	color: #1202ef;
-	width: 25px;
+.icon-home {
+    position: relative;
+    float: right;
+    color: #1202ef;
+    width: 25px;
 }
 
 //staff
@@ -40,26 +40,38 @@ a{
     min-width: 25.666667%;
 }
 
-
-.dis-none {display: none;}
-.dis-block {display: block;}
-.dis-inline {display: inline;}
-.dis-inline-block {display: inline-block;}
+.dis-none {
+    display: none;
+}
+.dis-block {
+    display: block;
+}
+.dis-inline {
+    display: inline;
+}
+.dis-inline-block {
+    display: inline-block;
+}
 .dis-flex {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
 }
 //Product
-.image-product{
-	border: 1px solid rgb(217, 215, 215);
-	border-radius:5px;
-	padding: 5px 10px;
-	cursor: pointer;
+.image-product {
+    border: 1px solid rgb(217, 215, 215);
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
 }
-.image-product:hover{
-	background-color: rgb(217, 215, 215);
+.image-product:hover {
+    background-color: rgb(217, 215, 215);
 }
 
+//Bill
+.checkbox-select-all-options {
+    width: 180px;
+    margin: 0 5px;
+}

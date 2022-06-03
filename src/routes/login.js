@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const loginController = require('../app/controllers/LoginController');
-// router.post('/insert', staffController.inserts);
+router.post('/test', loginController.test);
+router.get('/logout', loginController.logout);
 
 // router.put('/update/save/:id', staffController.update);
 
