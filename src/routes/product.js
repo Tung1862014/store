@@ -5,9 +5,10 @@ const upload = require('../middleware/upload');
 // var upload = multer({ dest:'../images/' });
 
 const productController = require('../app/controllers/ProductController');
+
 router.post('/insert',upload.array('image',12), productController.inserts);
 
-router.put('/update/save/:id', productController.update);
+router.put('/update/save/:id',upload.array('image',12), productController.update);
 
 router.delete('/delete/save/:id', productController.delete);
 

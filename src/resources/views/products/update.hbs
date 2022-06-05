@@ -127,7 +127,7 @@
             </ul>
         </div>
         <div class='col-9 form-staff'>
-            <form method='POST'  action="/product/update/save/{{product._id}}?_method=PUT">
+            <form method='POST'  action="/product/update/save/{{product._id}}?_method=PUT" enctype='multipart/form-data'>
                 <div class='form-group'>
                     <label for='name'>Tên sản phẩm</label>
                     <input
@@ -140,17 +140,37 @@
                         value='{{product.name}}'
                     /> 
                 </div>
-                 {{!-- <div class='form-group'>
-                    <label for='image' class='image-product'>Chọn file ảnh</label>
+                <div class='form-group'>
+                     <label id='url-image-{{product._id}}'>Hình ảnh</label>
+                     <p id='url-images-{{product._id}}' style="display: none;">{{product.image}}</p>
+                    {{!-- <label for='image' class='image-product'>Chọn file ảnh</label> --}}
+                    <script>
+                                var img = document.getElementById('url-images-'+`{{product._id}}`).innerHTML;
+                                var urlImg = img.split(",");
+                                //var image = document.getElementById('url-image-'+`{{this._id}}`);
+                                //image.src = urlImg[0];
+                                //urlImgconsole.log(image.src);
+                                urlImg.forEach(function(e, index, arr){
+                                    var image = document.createElement('img');
+                                    image.src = e;
+                                    image.width = '50';
+                                    image.height = '50';
+                                    image.style.marginLeft = '20px';
+                                    var imageUrl = document.getElementById('url-image-'+`{{product._id}}`);
+                                    imageUrl.appendChild(image);
+                                    //console.log(image.src);
+                                })
+                                
+                            </script> 
                     <input
                         type='file'
                         name='image'
-                        class='form-control'
-                        id='image'
-                        aria-describedby='emailHelp'
-                        style='display:none;'
+                        class='form-control mt-2'
+                        multiple="multiple"
+                        {{!-- style='display:none;' --}}
+                       
                     />
-                </div> --}}
+                </div>
                  <div class='form-group'>
                     <label for='number'>Số lượng</label>
                     <input
@@ -185,7 +205,7 @@
                         placeholder='ví dụ: 3000000'
                         value='{{product.promotion}}'
                     />
-                <button type='submit' class='btn btn-primary mt-4'>Thêm</button>
+                <button type='submit' class='btn btn-primary mt-4'>Cập nhật</button>
             </form>
         </div>
     </div>

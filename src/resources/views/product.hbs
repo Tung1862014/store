@@ -135,18 +135,33 @@
                         <th scope='col'>Tên sản phẩm</th>
                         <th scope='col'>Số lượng</th>
                         <th scope='col'>Giá</th>
+                        <th scope='col'>Hình ảnh</th>
                         <th scope='col'>Sửa</th>
                         <th scope='col'>Xóa</th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each products}}
+                         {{#lt @index 1}}
                         <tr>
                             <th scope='row'>{{sum @index 1}}</th>
                             <td>{{this.name}}</td>
                             <td>{{this.number}}</td>
                             <td>{{this.money}}</td>
-
+                            <td><img id='url-image-{{this._id}}'  src="" altclass="rounded mx-auto d-block" alt="" width="50" height="50">
+                            <p id='url-images-{{this._id}}' style="display: none;">{{this.image}}</p>
+                            </td>
+                            <script>
+                                var img = document.getElementById('url-images-'+`{{this._id}}`).innerHTML;
+                                var urlImg = img.split(",");
+                                var image = document.getElementById('url-image-'+`{{this._id}}`);
+                                image.src = urlImg[0];
+                                //urlImgconsole.log(image.src);
+                                //urlImg.forEach(function(e, index, arr){
+                                    
+                                //})
+                                
+                            </script> 
                             <td>
                                 <a href='product/update/{{this._id}}'>
                                     <svg
@@ -180,6 +195,7 @@
                                         ></path>
                                     </svg></a></td>
                         </tr>
+                         {{/lt}}
                     {{/each}}
                 </tbody>
             </table>
