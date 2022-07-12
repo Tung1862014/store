@@ -25,7 +25,6 @@
   "bugs": {
     "url": "https://github.com/Tung1862014/store/issues"
   },
-  "homepage": "https://github.com/Tung1862014/store#readme",
   "dependencies": {
     "bootstrap-icons": "^1.8.2",
     "cookie-parser": "^1.4.6",
